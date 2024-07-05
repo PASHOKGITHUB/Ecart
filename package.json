@@ -1,0 +1,21 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon backend/server.js",
+    "dev":"set NODE_ENV=development&&nodemon backend/server.js",
+    "prod":"set NODE_ENV=production&&nodemon backend/server.js",
+    "seeder":"node backend/utils/seeder.js "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4",
+    "nodemon": "^3.1.4"
+  }
+}
