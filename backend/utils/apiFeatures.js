@@ -21,6 +21,8 @@ class APIFeatures {
   filter() {
     const queryStrCopy = { ...this.querystr };
 
+    //console.log(queryStr);
+
     //removing fields from query
     const removeFields = ["keyword", "limit", "page"];
     removeFields.forEach(field => delete queryStrCopy[field]);
@@ -32,6 +34,13 @@ class APIFeatures {
     this.query.find(JSON.parse(querystr));
     return this;
   }
-}
 
+  paginate(resperpage){
+    const currentPage=Number(this.query.page)||1
+    const skip=resperpage*(currentPage-1)
+    this.query.limit(resperpage).skip(skip)
+    return this
+  }
+}
+ 
 module.exports = APIFeatures;
