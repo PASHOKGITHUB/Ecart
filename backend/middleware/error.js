@@ -22,13 +22,35 @@ module.exports=(err,req,res,next)=>{
         if(err.name=="ValidationError"){
             message=Object.values(err.errors).map(value=>value.message)
             error=new Error(message)
+            err.statusCode=400
         }
 
         //error handling for cast error
         if(err.name=="cast"){
             message=`Resource not Found ${err.path}`
             error=new Error(message)
+            err.statusCode=400
         }
+
+        if (err.code === 11000) {
+            const field = Object.keys(err.keyValue);
+            message = `Duplicate field value: ${field} already exists.`;
+            error = new Error(message);
+            err.statusCode = 400;
+        }
+
+        if(err.name == 'JSONWebTokenError') {
+            let message = `JSON Web Token is invalid. Try again`;
+            error=new Error(message)
+            err.statusCode=400
+        }
+
+        if(err.name=='TokenExpiredError'){
+            let message=`JSON Web Token is expired.Try again`
+            error=new Error(message)
+            err.statusCode=400  
+        }
+ 
 
         res.status(err.statusCode).json({
             success:false,

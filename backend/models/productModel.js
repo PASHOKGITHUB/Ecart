@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter product description"],
   },
-  ratings: {
+  ratings: {//taking average rating from the total reviews.
     type: String,
     default: 0,
   },
@@ -64,9 +64,8 @@ const productSchema = new mongoose.Schema({
   },
   reviews: [
     {
-      name: { //name of the reviewer
-        type: String,
-        requird: true,
+      user:{
+        type:mongoose.Schema.Types.ObjectId
       },
       rating: {
         type: String,
@@ -78,6 +77,10 @@ const productSchema = new mongoose.Schema({
       }
     },
   ],
+  user:{
+    type:mongoose.Schema.Types.ObjectId,
+
+  },
   createdAt:{
     type:Date,
     default:Date.now()
