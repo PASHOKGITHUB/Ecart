@@ -19,6 +19,8 @@ exports.newproduct =catchAsyncError(async (req, res, next) => {
 
 //Get all the product
 exports.getproducts = async (req, res, next) => {
+  //await new Promise(resolve=>setTimeout(resolve,3000))  //This line is used for getting the response late for 3 seconds when we get the products.
+  return next(new ErrorHandler(`Unable to get Products!,400`))
   const product = await Product.find({});
   res.status(201).json({
     success: true,
@@ -88,10 +90,10 @@ let resperpage=2
 exports.filterproduct=catchAsyncError(async(req,res,next)=>{
     const apiFeatures=new APIFeatures(Product.find(),req.query).search().filter().paginate(resperpage)
 
-    const products=await apiFeatures.query
+    const product=await apiFeatures.query
     res.status(200).json({
         success:true,
-        products
+        product
     })  
 })
 

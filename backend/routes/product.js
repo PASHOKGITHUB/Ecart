@@ -19,7 +19,7 @@ const router = express.Router();
 //then only the user can able to add a new Product
 router.post("/admin/newproduct",isAuthenticatedUser,authorizeRoles('admin'),newproduct);
 
-router.get("/getproducts",isAuthenticatedUser, getproducts);
+router.get("/getproducts",getproducts);
 
 router.get("/getSingleProduct/:id",getSingleProduct);
 
