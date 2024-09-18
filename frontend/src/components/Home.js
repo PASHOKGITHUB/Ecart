@@ -5,20 +5,22 @@ import { getproducts } from "../actions/productsActions";
 import Loader from "./layouts/loader";
 import Products from "./products/products";
 import {toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+//import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home(){
-    const dispatch=useDispatch()
+    const dispatch=useDispatch()    
     //to get the data from the the state we have to use the selector hook.
-    const {product,loading}=useSelector((state)=>state.productsState)
+    const {product,loading,error}=useSelector((state)=>state.productsState)
 
     //this useEffect will call once the component get loded.we creating to get the data for one time.
     useEffect(()=>{
-        toast.error('Error getting Products',{
-            position:"bottom-center"
-        })
+        if(error){
+            return toast.error(error,{
+                position:'bottom-center'
+            })  
+        }
         dispatch(getproducts)
-    },[dispatch])//we use the [] for running the callback for one time.
+    },[error])//we use the [] for running the callback for one time.
 
     return(
         <Fragment>
